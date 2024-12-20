@@ -54,8 +54,12 @@ func openInternal(options OpenOptions) (io.ReadWriteCloser, error) {
 		options.PortName = "\\\\.\\" + options.PortName
 	}
 
+	var rwMode uint32 = syscall.GENERIC_READ
+	if options.ReadOnly {
+		rwMode = syscall.GENERIC_READ | syscall.GENERIC_WRITE
+	}
 	h, err := syscall.CreateFile(syscall.StringToUTF16Ptr(options.PortName),
-		syscall.GENERIC_READ|syscall.GENERIC_WRITE,
+		rwMode,
 		0,
 		nil,
 		syscall.OPEN_EXISTING,

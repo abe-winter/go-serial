@@ -157,6 +157,9 @@ type OpenOptions struct {
 
 	// RTS delay after send
 	Rs485DelayRtsAfterSend int
+
+	// only used on windows for now
+	ReadOnly bool
 }
 
 // Open creates an io.ReadWriteCloser based on the supplied options struct.
